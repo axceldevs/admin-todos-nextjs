@@ -33,3 +33,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#postgres data docker
+/postgres
+
+#Enviroment
+.env
+
+/src/generated/prisma
+
+/src/generated/prisma
+
+/src/generated/prisma

@@ -1,10 +1,8 @@
-import React from "react";
-import { Todo } from "@prisma/client";
-
 import style from "./TodoItem.module.css";
 
 import { formatDateTime } from "../helpers/todos";
 import { IoTrashOutline } from "react-icons/io5";
+import { Todo } from "@/generated/prisma/client";
 
 interface Props {
   todo: Todo;

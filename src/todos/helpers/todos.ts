@@ -1,4 +1,4 @@
-import { Todo } from "@prisma/client";
+import { Todo } from "@/generated/prisma/client";
 
 export const createTodo = async (
   description: string,

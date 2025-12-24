@@ -1,7 +1,7 @@
 'use client';
 
 import { TodoCard } from "./TodoCard";
-import { Todo } from "@prisma/client";
+import { Todo } from "@/generated/prisma/client";
 import { NoTodos } from "./NoTodos";
 
 import * as todosApi from "@/todos/helpers/todos";

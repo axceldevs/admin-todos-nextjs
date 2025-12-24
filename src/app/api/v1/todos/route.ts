@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import prisma from '@/lib/prisma'
+import { Prisma } from "@/generated/prisma/client";
 
 import { NextResponse, NextRequest } from "next/server";
 import { boolean, object, string } from "yup";

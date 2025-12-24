@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import prisma from '@/lib/prisma'
+import { Prisma } from "@/generated/prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 import { boolean, object, string, ValidationError } from "yup";
 
@@ -9,9 +9,9 @@ interface Segments {
   }
 }
 
-export async function GET(request: Request, { params }: Segments) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
 
-  const idTodo = params.id;
+  const idTodo = (await params).id;
 
   if (!idTodo) {
     return NextResponse.json(
@@ -55,8 +55,8 @@ const putSchema = object({
 });
 
 
-export async function PUT(request: Request, { params }: Segments) { 
-  const idTodo = params.id;
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) { 
+  const idTodo = (await params).id;
 
   const todo = await prisma.todo.findFirst(
     {
@@ -81,7 +81,7 @@ export async function PUT(request: Request, { params }: Segments) {
   try {
     const {completed, description} = await putSchema.validate(await request.json());
     const updatedTodo = await prisma.todo.update({
-      where:{
+      where: {
         id: idTodo
       },
       data: {
@@ -139,8 +139,8 @@ export async function PUT(request: Request, { params }: Segments) {
   }
 }
 
-export async function DELETE(request: Request, { params }: Segments) {
-  const idTodo = params.id;
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const idTodo = (await params).id;
 
   const todo = await prisma.todo.findFirst(
     {

@@ -18,18 +18,15 @@ export default function DashboardLayout({
       <div
         className="
           ml-auto
-          min-h-screen
-          w-full
           lg:w-[75%]
           xl:w-[80%]
           2xl:w-[85%]
-          flex
-          flex-col
+          min-h-screen
         "
       >
         <TopMenu />
 
-        <main className="flex-1 px-6 pt-6 pb-6 bg-gray-100">
+        <main className="px-6 pt-6 bg-white p-2 m-2 rounded">
           {children}
         </main>
       </div>

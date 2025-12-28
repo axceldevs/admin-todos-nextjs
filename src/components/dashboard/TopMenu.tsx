@@ -1,15 +1,46 @@
 import {
-  CiBellOn,
   CiChat1,
   CiMenuBurger,
   CiSearch,
 } from "react-icons/ci";
 
-export const TopMenu = () => {
+import { cookies } from "next/headers";
+import { CartPage } from "@/components/dashboard/CartPage";
+import { products } from "@/products/data/products";
+import { Cart } from "@/shopping-cart/data/cart";
+
+const getTotalItems = (cart: { [id: string]: number }) => {
+  let items = 0;
+  Object.values(cart).forEach((quantity) => {
+    items += quantity;
+  });
+  return items;
+};
+
+const getItemsCart = (cart: { [id: string]: number }): Cart[] => {
+  const itemCart: Cart[] = [];
+  products.forEach((product) => {
+    if (cart[product.id]) {
+      itemCart.push({ product, quantity: cart[product.id] });
+    }
+  });
+  return itemCart;
+}
+
+export const TopMenu = async () => {
+
+  const cookieStore = await cookies();
+  const cart = JSON.parse(cookieStore.get("cart")?.value || "{}") as {
+    [id: string]: number;
+  };
+
+  const totalItems = getTotalItems(cart);
+
+  const itemsCart = getItemsCart(cart);
+
   return (
     <div className="sticky top-0 z-10 h-16 border-b border-gray-200/60 bg-white">
       <div className="flex h-full items-center justify-between px-6 gap-4">
-        
         {/* Título */}
         <h5 className="hidden text-2xl font-medium text-gray-600 lg:block">
           Dashboard
@@ -22,7 +53,6 @@ export const TopMenu = () => {
 
         {/* Acciones */}
         <div className="flex items-center gap-2">
-          
           {/* Search desktop */}
           <div className="hidden md:block">
             <div className="relative flex items-center text-gray-400 focus-within:text-cyan-500">
@@ -48,9 +78,7 @@ export const TopMenu = () => {
           </button>
 
           {/* Notificaciones */}
-          <button className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200/60 bg-gray-100 active:bg-gray-200">
-            <CiBellOn size={25} />
-          </button>
+          <CartPage totalItems={totalItems} items={itemsCart} />
         </div>
       </div>
     </div>

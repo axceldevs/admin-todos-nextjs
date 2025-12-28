@@ -4,11 +4,15 @@ import {
   IoBrowsersOutline,
   IoServerOutline,
   IoGridOutline,
+  IoLogOutOutline,
+  IoSaveOutline,
+  IoBagOutline
 } from "react-icons/io5";
 import { SidebarItem } from "./SidebarItem";
 import Image from "next/image";
 import Link from "next/link";
-import { CiLogout } from "react-icons/ci";
+import path from "node:path";
+
 const menuItems = [
   {
     path: "/dashboard",
@@ -25,6 +29,16 @@ const menuItems = [
     name: "Server Todos",
     icon: <IoServerOutline size={30} />,
   },
+  {
+    path: "/dashboard/cookies",
+    name: "Cookies",
+    icon: <IoSaveOutline size={30} />,
+  },
+  {
+    path: "/dashboard/products",
+    name: "Products",
+    icon: <IoBagOutline size={30} />,
+  }
 ];
 export const Sidebar = () => {
   return (
@@ -74,7 +88,7 @@ export const Sidebar = () => {
         {" "}
         <button className="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
           {" "}
-          <CiLogout /> <span className="group-hover:text-gray-700">
+          <IoLogOutOutline /> <span className="group-hover:text-gray-700">
             Logout
           </span>{" "}
         </button>{" "}

@@ -21,7 +21,7 @@ export const SidebarItem = ({ path, name, icon }: SidebarItemProps) => {
           className={`${style.link} ${pathname === path ? style.activeLink : ""}`}
         >
           {icon}
-          <span className="-mr-1 font-medium">{name}</span>
+          <span className="group-hover:text-white-700">{name}</span>
         </Link>
       </li>
     </>

@@ -1,13 +1,7 @@
 @reference "tailwindcss";
 
 .link {
-  @apply relative px-4 py-3 flex items-center space-x-4 rounded-xl
-         text-gray-200
-         bg-linear-to-r from-gray-800 to-gray-900
-         hover:from-gray-700 hover:to-gray-800
-         hover:text-white
-         hover:shadow-lg
-         transition-all duration-300 ease-out;
+  @apply px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 hover:bg-linear-to-r hover:bg-sky-600 hover:text-white;
 }
 
 .activeLink {

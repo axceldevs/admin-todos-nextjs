@@ -1,4 +1,6 @@
+'use client';
 import style from "./TodoItem.module.css";
+import { startTransition, useOptimistic } from "react";
 
 import { formatDateTime } from "../helpers/todos";
 import { IoTrashOutline } from "react-icons/io5";
@@ -6,11 +8,29 @@ import { Todo } from "@/generated/prisma/client";
 
 interface Props {
   todo: Todo;
-  toggleTodo: (id: string, completed: boolean) => Promise<void>;
-  deleteTodo: (id: string) => Promise<void>;
+  toggleTodo: (id: string, completed: boolean) => Promise<Todo | void>;
+  deleteTodo: (id: string) => Promise<Todo | void>;
 }
 
 export const TodoCard = ({ todo, toggleTodo, deleteTodo }: Props) => {
+
+  const [optimisticTodo, toggleOptimisticTodo] = useOptimistic(todo,
+    (currentTodo, newCompleted: boolean) => ({
+      ...currentTodo,
+      completed: newCompleted,
+    })
+  );
+  
+  const handleToggle = async () => {
+    try{
+      startTransition(() => toggleOptimisticTodo(!optimisticTodo.completed));
+      await toggleTodo(optimisticTodo.id, !optimisticTodo.completed);
+    }catch(error){
+      startTransition(() => toggleOptimisticTodo(!optimisticTodo.completed));
+      console.error("Error toggling todo:", error);
+    }
+  }
+
   return (
     <div
       key={todo.id}
@@ -20,8 +40,8 @@ export const TodoCard = ({ todo, toggleTodo, deleteTodo }: Props) => {
       {/* Checkbox */}
       <input
         type="checkbox"
-        checked={todo.completed}
-        onChange={() => toggleTodo(todo.id, !todo.completed)}
+        checked={optimisticTodo.completed}
+        onChange={handleToggle}
         className="mt-1 h-5 w-5 cursor-pointer accent-green-600"
       />
 
@@ -29,14 +49,14 @@ export const TodoCard = ({ todo, toggleTodo, deleteTodo }: Props) => {
       <div className="flex-1">
         <p
           className={`text-sm font-medium transition
-          ${todo.completed ? style.todoDone : style.todoPending}`}
+          ${optimisticTodo.completed ? style.todoDone : style.todoPending}`}
         >
-          {todo.description}
+          {optimisticTodo.description}
         </p>
 
         <div className="mt-1 flex flex-wrap gap-4 text-xs text-gray-500">
-          <span>Creado: {formatDateTime(todo.created_at)}</span>
-          <span>Actualizado: {formatDateTime(todo.updated_at)}</span>
+          <span>Creado: {formatDateTime(optimisticTodo.created_at)}</span>
+          <span>Actualizado: {formatDateTime(optimisticTodo.updated_at)}</span>
         </div>
       </div>
 

@@ -29,7 +29,7 @@ export default function DashboardLayout({
       >
         <TopMenu />
 
-        <main className="flex-1 px-6 pt-6 pb-6">
+        <main className="flex-1 px-6 pt-6 pb-6 bg-gray-100">
           {children}
         </main>
       </div>

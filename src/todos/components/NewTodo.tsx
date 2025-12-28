@@ -1,8 +1,9 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import * as todosApi from "@/todos/helpers/todos";
+//import * as todosApi from "@/todos/helpers/todos";
 import { useRouter } from "next/navigation";
+import { createTodo } from "@/todos/actions/todos-actions";
 
 export const NewTodo = () => {
 
@@ -13,10 +14,10 @@ export const NewTodo = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (description.trim().length === 0) return;
-    const newTodo = await todosApi.createTodo(description);
+    const newTodo = await createTodo(description);
     console.log("Created Todo:", newTodo);
     setDescription("");
-    router.refresh();
+    //router.refresh();
   };
 
   return (

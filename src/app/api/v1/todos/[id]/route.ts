@@ -92,7 +92,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     return NextResponse.json(
       {
         message: "success",
-        date: updatedTodo.updated_at,
+        date: updatedTodo.updatedAt,
         method: "PUT",
         data: updatedTodo,
       },

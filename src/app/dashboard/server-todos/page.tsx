@@ -2,14 +2,26 @@ import prisma from "@/lib/prisma";
 import { NewTodo } from "@/todos";
 import { TodosGrid } from "@/todos/components/TodosGrid";
 import { Todo } from "@/generated/prisma/client";
+import { getUserSessionServer } from "@/auth/actions/auth-actions";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 
 export default async function ServerTodosPage() {
+
+  const user = await getUserSessionServer()
+
+  if (!user) {
+    redirect("/api/auth/signin")
+  }
+
   const todos: Todo[] = await prisma.todo.findMany({
-    orderBy: { updated_at: "desc" },
+    orderBy: { updatedAt: "desc" },
+    where: {
+      userId: user?.id
+    }
   });
   return (
     <>

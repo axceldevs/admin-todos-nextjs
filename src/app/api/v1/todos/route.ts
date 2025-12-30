@@ -40,22 +40,24 @@ export async function GET(request: Request) {
 const postSchema = object({
   description: string().required(),
   completed: boolean().optional().default(false),
+  userId: string().required()
 });
 
 export async function POST(request: Request) {
   
   try {
-    const {completed, description} = await postSchema.validate(await request.json());
+    const {completed, description, userId} = await postSchema.validate(await request.json());
     const savedTodo = await prisma.todo.create({
       data: {
         completed,
-        description
+        description,
+        userId: userId
       },
     });
     return NextResponse.json(
       {
         message: "success",
-        date: savedTodo.created_at,
+        date: savedTodo.createdAt,
         method: "POST",
         data: savedTodo,
       },

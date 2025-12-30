@@ -71,12 +71,12 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
           <div className="flex">
             <button onClick={ onAddToCart } 
-            className="text-white mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            className="text-white mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center">
               <IoAddCircleOutline size={25} />
             </button>
             <button 
             onClick={onRemoveFromCart}
-            className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center">
               <IoTrashOutline size={20} />
             </button>
           </div>

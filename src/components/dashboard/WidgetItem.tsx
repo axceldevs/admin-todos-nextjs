@@ -1,4 +1,9 @@
-export const WidgetItem = () => {
+
+interface WidgetItemProps {
+  title?: string
+}
+
+export const WidgetItem = ({title}: WidgetItemProps) => {
   return (
     <>
       <div className="md:col-span-2 lg:col-span-1">
@@ -25,7 +30,7 @@ export const WidgetItem = () => {
               </div>
             </div>
             <span className="block text-center text-gray-500">
-              Compared to last week $13,988
+             {title}
             </span>
           </div>
         </div>

@@ -4,17 +4,21 @@ import { FormEvent, useState } from "react";
 //import * as todosApi from "@/todos/helpers/todos";
 import { useRouter } from "next/navigation";
 import { createTodo } from "@/todos/actions/todos-actions";
+import { getUserSessionFromClient } from "@/auth/actions/auth-actions-client";
 
 export const NewTodo = () => {
 
+  const user = getUserSessionFromClient()
+
   const [description, setDescription] = useState("");
 
-  const router = useRouter();
+  //const router = useRouter();
 
   const onSubmit = async (e: FormEvent) => {
+    
     e.preventDefault();
     if (description.trim().length === 0) return;
-    const newTodo = await createTodo(description);
+    const newTodo = await createTodo(description, user.id);
     console.log("Created Todo:", newTodo);
     setDescription("");
     //router.refresh();

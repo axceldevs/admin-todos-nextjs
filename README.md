@@ -28,6 +28,10 @@ npm run dev
 8. Ejecutar el seed para [para crear datos en la base de datos local](http://localhost:3000/api/v1/seed)
 
 
+# NOTA: usuario por defecto
+__Usuario:__ test1@google.com
+__Password:__ 12345 
+
 # REF: Prisma comandos
 ```
 npx prisma init

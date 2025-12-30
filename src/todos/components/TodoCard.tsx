@@ -55,8 +55,8 @@ export const TodoCard = ({ todo, toggleTodo, deleteTodo }: Props) => {
         </p>
 
         <div className="mt-1 flex flex-wrap gap-4 text-xs text-gray-500">
-          <span>Creado: {formatDateTime(optimisticTodo.created_at)}</span>
-          <span>Actualizado: {formatDateTime(optimisticTodo.updated_at)}</span>
+          <span>Creado: {formatDateTime(optimisticTodo.createdAt)}</span>
+          <span>Actualizado: {formatDateTime(optimisticTodo.updatedAt)}</span>
         </div>
       </div>
 
